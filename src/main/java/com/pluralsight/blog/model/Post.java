@@ -14,70 +14,81 @@ import java.util.List;
 
 @Entity
 public class Post {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String title;
-    @Column(length=1000000)
-    @Lob
-    private String body;
-    @Temporal(TemporalType.DATE)
-    @CreationTimestamp
-    private Date date;
 
-    public Post() {
-        super();
-    }
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Author author;
 
-    public Post(String title, String body){//, Author author) {
-        this();
-        this.title = title;
-        this.body = body;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String title;
+	@Column(length = 1000000)
+	@Lob
+	private String body;
+	@Temporal(TemporalType.DATE)
+	@CreationTimestamp
+	private Date date;
 
-    public Long getId() {
-        return id;
-    }
+	public Post() {
+		super();
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Post(String title, String body) {// , Author author) {
+		this();
+		this.title = title;
+		this.body = body;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getBody() {
-        return body;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public void setBody(String body) {
-        this.body = body;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public Date getDate() {
-        return date;
-    }
+	public String getBody() {
+		return body;
+	}
 
-    public String getDateStr() {
-        DateFormat outputFormatter = new SimpleDateFormat("MM/dd/yyyy");
-        return outputFormatter.format(this.date);
-    }
+	public void setBody(String body) {
+		this.body = body;
+	}
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+	public Date getDate() {
+		return date;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Post))
-            return false;
-        Post otherPost = (Post)obj;
-        return this.title.equals(otherPost.getTitle()) &&
-               this.body.equals(otherPost.getBody());
-    }
+	public String getDateStr() {
+		DateFormat outputFormatter = new SimpleDateFormat("MM/dd/yyyy");
+		return outputFormatter.format(this.date);
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Author getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Post))
+			return false;
+		Post otherPost = (Post) obj;
+		return this.title.equals(otherPost.getTitle()) && this.body.equals(otherPost.getBody());
+	}
 }
